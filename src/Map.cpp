@@ -1,4 +1,5 @@
 #include "Map.hpp"
+#include "TileLayer.hpp"
 #include <iostream>
 #include <algorithm>
 
@@ -25,11 +26,17 @@ void Map::load(std::string name)
 	data.SizeTile = sf::Vector2i(map.attribute("tilewidth").as_int(), map.attribute("tileheight").as_int());
 	data.backgroundcolor = map.attribute("backgroundcolor").value();
 
-	auto tileset = map.children("tileset");
+	auto && tileset = map.children("tileset");
 	for (auto && tile : tileset)
 	{
 		vTileset.push_back(std::make_unique<Tileset>());
-		vTileset[vTileset.size()-1]->load_tileset(&tile);
+		vTileset[vTileset.size() - 1]->load_tileset(&tile);
+	}
+	auto && vlayer = map.children("layer");
+	for (auto && layer : vlayer)
+	{
+		vLayer.push_back(std::make_unique<TileLayer>());
+		vLayer[vLayer.size() - 1]->load(&layer);
 	}
 	
 }

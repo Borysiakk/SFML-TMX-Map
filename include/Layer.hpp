@@ -1,27 +1,24 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <pugixml.hpp>
 #include <SFML\System\Vector2.hpp>
-
-struct LayerData
+using namespace pugi;
+enum class TypeLayer
 {
-	bool visible;
-	float opacity;
-	std::string name;
-	sf::Vector2i offset;
+	Tile = 0,
+	Oject = 1,
 };
 class Layer
 {
 public:
 	using Ptr = std::unique_ptr<Layer>;
+
 	Layer();
-
-	const sf::Vector2i & getOffset()const;
-	const std::string & getName()const;
-	bool getVisible();
-	float getOpacity();
-
+	TypeLayer getType();
+	void setType(TypeLayer type);
+	virtual void load(xml_node * node) = 0;
 private:
-	LayerData Data;
+	TypeLayer mtype;
 };
 
