@@ -5,7 +5,6 @@
 using namespace pugi;
 enum class TypeDecode
 {
-	NONE = 0,
 	CSV = 1,
 	BASE64 = 2,
 	BASE64_ZLIB = 3,
@@ -18,8 +17,10 @@ public:
 	std::vector<std::uint16_t> operator()();
 	~Decode();
 private:
-	xml_text mtext;
-	TypeDecode mtype;
+    void decodeBase64(std::string text);
+	void decodeCSV(std::string text);
+	void decodeZlib(std::string text);
+
 	std::vector<std::uint16_t> data;
 };
 
