@@ -1,16 +1,17 @@
 #pragma once
-#include "Map.hpp"
-#include "TextureAtlas.hpp"
+#include "TextureManager.hpp"
+#include "Tileset.hpp"
+
 #include <vector>
 #include <memory>
-#include <experimental\unordered_map>
 #include <SFML\Graphics.hpp>
 class MapsDrawable :public sf::Drawable
 {
 public:
-	MapsDrawable();
-	~MapsDrawable();
+	MapsDrawable(std::vector<Tileset::Ptr> & tileset);
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 private:
-	std::unordered_map<int16_t,TextureID> x;//int16_t gid = local id;
+	void loadtexture();
+	TextureManager TextureManager;
+	std::vector<Tileset::Ptr> & vTileset;
 };
-
