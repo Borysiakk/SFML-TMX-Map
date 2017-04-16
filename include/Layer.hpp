@@ -7,14 +7,13 @@ using namespace pugi;
 enum class TypeLayer
 {
 	Tile = 0,
-	Oject = 1,
+	Object = 1,
 };
 class Layer
 {
 public:
-	using Ptr = std::unique_ptr<Layer>;
+	using Ptr = std::shared_ptr<Layer>;
 
-	Layer();
 	TypeLayer getType();
 	void setType(TypeLayer type);
 	virtual void load(xml_node * node) = 0;

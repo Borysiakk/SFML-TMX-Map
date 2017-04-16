@@ -2,23 +2,26 @@
 #include "Layer.hpp"
 #include <pugixml.hpp>
 #include <memory>
+#include <vector>
 using namespace pugi;
 struct LayerData
 {
 	bool visible;
 	float opacity;
 	std::string name;
-	sf::Vector2i offset;
+	sf::Vector2i size;
 };
 
 class TileLayer :public Layer
 {
 public:
-	using Ptr = std::unique_ptr<Layer>;
+	using Ptr = std::shared_ptr<TileLayer>;
 
 	TileLayer();
-     void load(xml_node * node);
+	const std::vector<uint16_t> & getTile()const;
+    void load(xml_node * node);
 private:
 	LayerData Data;
+	std::vector<uint16_t> vTile;
 };
 

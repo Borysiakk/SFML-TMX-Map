@@ -22,10 +22,13 @@ struct Image
 class Tileset
 {
 public:
-	using Ptr = std::unique_ptr<Tileset>;
+	using Ptr = std::shared_ptr<Tileset>;
 
 	Tileset();
+	Tileset(const Tileset && tileset);
 	void load_tileset(xml_node * node);
+	const TilesetData & getData() { return Data; }
+	const std::vector<Image> & getImges() { return vImage; }
 	~Tileset();
 private:
 	TilesetData Data;

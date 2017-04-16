@@ -6,6 +6,8 @@
 #include "Tileset.hpp"
 #include "Layer.hpp"
 
+#include "TileLayer.hpp"
+#include "ObjectGroup.hpp"
 using namespace pugi;
 
 enum class RenderOrder
@@ -28,12 +30,19 @@ struct MapData
 class Map
 {
 public:
+	using Ptr = std::shared_ptr<Map>;
+
 	Map();
+	Map(std::string name);
+
 	void load(std::string maps);
-	~Map();
+	const MapData & getData() { return data; }
+	std::vector<Layer::Ptr> getLayer() { return vLayer; }
+	std::vector<Tileset::Ptr> getTilset() { return vTileset; }
 private:
 	std::vector<Tileset::Ptr> vTileset;
 	std::vector<Layer::Ptr> vLayer;
+
 	xml_document document;
 	MapData data;
 };

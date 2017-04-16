@@ -6,6 +6,11 @@ Tileset::Tileset()
 
 }
 
+Tileset::Tileset(const Tileset && tileset) :vImage(tileset.vImage),Data(tileset.Data)
+{
+
+}
+
 void Tileset::load_tileset(xml_node * node)
 {
 	Image data;

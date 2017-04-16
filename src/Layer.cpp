@@ -1,11 +1,5 @@
 #include "Layer.hpp"
 
-
-Layer::Layer()
-{
-
-}
-
 TypeLayer Layer::getType()
 {
 	return mtype;
