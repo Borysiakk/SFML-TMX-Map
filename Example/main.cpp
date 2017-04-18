@@ -25,13 +25,13 @@ int main()
 
 	while (window.isOpen())
 	{
-		sf::Event zdarzenie;
-		while (window.pollEvent(zdarzenie))
+		sf::Event event;
+		while (window.pollEvent(event))
 		{
-			if (zdarzenie.type == sf::Event::Closed)
+			if (event.type == sf::Event::Closed)
 				window.close();
 
-			if (zdarzenie.type == sf::Event::KeyPressed && zdarzenie.key.code == sf::Keyboard::Escape)
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 				window.close();
 
 		}
