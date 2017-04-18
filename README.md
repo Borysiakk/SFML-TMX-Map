@@ -2,10 +2,11 @@
 
 
 Supports tmx maps up to 0.18.2 with CSV,base64 and XML 
-| Library | Version |
-| ------  | ------  |
-|  SFML   | 2.4     |
-|  Pugi   | 1.8     |
+
+| Library       | Version       |
+| ------------- |:-------------:|
+| SFML          | 2.4  		|
+| Pugi          | 1.8           |
 
 Example
 ```sh
