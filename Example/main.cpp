@@ -1,12 +1,27 @@
 #include <iostream>
 #include "Map.hpp"
 #include "MapDrawable.hpp"
+using namespace tmx;
+
 int main()
 {
-	Map map("tree.tmx");
+	tmx::Map map("tree.tmx");
 	sf::RenderWindow window(sf::VideoMode(800, 600, 32), "TMX SFML");
 	window.setFramerateLimit(60);
-	MapDrawable MapDraw(map);
+	tmx::MapDrawable MapDraw(map);
+
+	const auto & vLayer = map.getLayer();
+	for (auto & layer : vLayer)
+	{
+		if (layer->getType() == TypeLayer::Tile)
+		{
+			TileLayer::Ptr obj = std::dynamic_pointer_cast<TileLayer>(layer);
+		}
+		else if (layer->getType() == TypeLayer::Object)
+		{
+			ObjectGroup::Ptr obj = std::dynamic_pointer_cast<ObjectGroup>(layer);
+		}
+	}
 
 	while (window.isOpen())
 	{

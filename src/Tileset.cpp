@@ -1,6 +1,6 @@
 #include "Tileset.hpp"
-#include <iostream>
 
+using namespace tmx;
 Tileset::Tileset()
 {
 

@@ -2,6 +2,7 @@
 #include "ObjectGroup.hpp"
 #include <iostream>
 
+using namespace tmx;
 
 ObjectGroup::ObjectGroup()
 {
@@ -35,9 +36,4 @@ const std::string & ObjectGroup::getName() const
 const std::vector<ObjectData>& ObjectGroup::getObject()
 {
 	return vObject;
-}
-
-
-ObjectGroup::~ObjectGroup()
-{
 }

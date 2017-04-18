@@ -1,4 +1,5 @@
 #include "Layer.hpp"
+using namespace tmx;
 
 TypeLayer Layer::getType()
 {

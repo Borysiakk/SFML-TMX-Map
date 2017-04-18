@@ -2,7 +2,8 @@
 #include "Decode.hpp"
 
 #include <iostream>
-#include <sstream>
+using namespace tmx;
+
 TileLayer::TileLayer()
 {
 	setType(TypeLayer::Tile);

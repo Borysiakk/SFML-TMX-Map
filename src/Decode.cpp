@@ -5,6 +5,7 @@
 #include <bitset>
 #include <algorithm>
 #include <memory>
+using namespace tmx;
 
 Decode::Decode(xml_text xmltext, TypeDecode type)
 {
@@ -52,14 +53,14 @@ void Decode::decodeBase64(std::string text)
 	std::vector < std::bitset<8>> vText;
 	if (text[size - 1] == '=' && text[size - 2] == '=')size -= 3;
 	else if (text[size - 1] == '=')size -= 2;
-	for (int i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
 		vText.push_back(mChars[text[i]]);
 	}
 	size = 0;
 	short movement = 0;
 	std::vector < std::bitset<8>> vDecode;
-	for (int i = 0; i < vText.size(); i++)
+	for (size_t i = 0; i < vText.size(); i++)
 	{
 		if (movement == 8)movement = 0;
 
@@ -102,7 +103,7 @@ void Decode::decodeBase64(std::string text)
 	}
 	for (std::vector<std::bitset<8>>::iterator it = vDecode.begin(); it != vDecode.end(); it += 4)
 	{
-		data.push_back(it->to_ulong());
+		data.push_back(static_cast<int16_t>(it->to_ulong()));
 	}
 }
 

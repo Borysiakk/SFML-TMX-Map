@@ -3,10 +3,10 @@
 #include "ObjectGroup.hpp"
 #include <iostream>
 #include <algorithm>
+using namespace tmx;
 
 Map::Map()
 {
-
 }
 
 Map::Map(std::string name)

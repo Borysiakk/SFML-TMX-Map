@@ -1,6 +1,7 @@
 #include "TextureManager.hpp"
 #include <iostream>
 
+using namespace tmx;
 
 TextureManager::TextureManager()
 {

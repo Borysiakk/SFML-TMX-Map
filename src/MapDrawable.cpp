@@ -3,6 +3,7 @@
 
 #include "TileLayer.hpp"
 #include "ObjectGroup.hpp"
+using namespace tmx;
 
 MapDrawable::MapDrawable(Map & mmap):map(mmap)
 {
@@ -44,19 +45,19 @@ void MapDrawable::loadtexture()
 
 void MapDrawable::createvertex()
 {
-	int size = 0;
 	sf::Vector2i MapSize = map.getData().SizeMap;
 	sf::Vector2i TileSize = map.getData().SizeTile;
 	sf::Vector2f Position(0,0 - TileSize.y);
+
 	sf::VertexArray array(sf::VertexArray(sf::Quads, 4));
 	for (auto obj : map.getLayer())
 	{
 		if (obj->getType() == TypeLayer::Tile)
 		{
 			TileLayer::Ptr tilesptr = std::dynamic_pointer_cast<TileLayer>(obj);
-			for (int i = 0; i < tilesptr->getTile().size();i++)
+			for (size_t i = 0; i < tilesptr->getTile().size();i++)
 			{
-
+				array.resize(4);
 				if (i % MapSize.x == 0)
 				{
 					Position += sf::Vector2f(0, TileSize.y);
@@ -74,7 +75,8 @@ void MapDrawable::createvertex()
 					array[1].texCoords = sf::Vector2f(rect.left, rect.top + rect.height);
 					array[2].texCoords = sf::Vector2f(rect.left + rect.width, rect.top + rect.height);
 					array[3].texCoords = sf::Vector2f(rect.left + rect.width, rect.top);
-					vVertexArray.push_back(std::make_pair(tilesptr->getTile()[i], array));
+
+					vVertexArray.push_back(std::make_pair(tilesptr->getTile()[i],std::move(array)));
 				}
 				Position += sf::Vector2f(TileSize.x,0);
 			}
@@ -82,6 +84,22 @@ void MapDrawable::createvertex()
 		else
 		{
 			ObjectGroup::Ptr object = std::dynamic_pointer_cast<ObjectGroup>(obj);
+			for (auto & obj : object->getObject())
+			{
+				array.resize(4);
+				sf::FloatRect rect = obj.rect;
+				array[0].position = sf::Vector2f(rect.left ,rect.top);
+				array[1].position = sf::Vector2f(rect.left, rect.top - rect.height);
+				array[2].position = sf::Vector2f(rect.left + rect.width, rect.top - rect.height);
+				array[3].position = sf::Vector2f(rect.left + rect.width, rect.top);
+
+				array[0].texCoords = sf::Vector2f(0, rect.height);
+				array[1].texCoords = sf::Vector2f(0,0);
+				array[2].texCoords = sf::Vector2f(rect.width, 0);
+				array[3].texCoords = sf::Vector2f(rect.width,rect.height);
+
+				vVertexArray.push_back(std::make_pair(obj.gid,std::move(array)));
+			}
 		}
 	}
 }
