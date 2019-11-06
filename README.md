@@ -53,7 +53,4 @@ int main()
 		window.display();
 	}
 }
-```
-License
-Zlib
 
